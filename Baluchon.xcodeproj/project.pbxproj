@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		741A7F512AE2CFFA001B77BE /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A7F502AE2CFFA001B77BE /* WeatherViewController.swift */; };
+		741A7F532AE2D010001B77BE /* ConverterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A7F522AE2D010001B77BE /* ConverterViewController.swift */; };
+		741A7F552AE2D020001B77BE /* TraductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 741A7F542AE2D020001B77BE /* TraductionViewController.swift */; };
 		74350C492AE2B642000C7EA7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C482AE2B642000C7EA7 /* AppDelegate.swift */; };
 		74350C4B2AE2B642000C7EA7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C4A2AE2B642000C7EA7 /* SceneDelegate.swift */; };
-		74350C4D2AE2B642000C7EA7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C4C2AE2B642000C7EA7 /* ViewController.swift */; };
 		74350C502AE2B642000C7EA7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74350C4E2AE2B642000C7EA7 /* Main.storyboard */; };
 		74350C522AE2B645000C7EA7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 74350C512AE2B645000C7EA7 /* Assets.xcassets */; };
 		74350C552AE2B645000C7EA7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74350C532AE2B645000C7EA7 /* LaunchScreen.storyboard */; };
 		74350C602AE2B645000C7EA7 /* BaluchonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C5F2AE2B645000C7EA7 /* BaluchonTests.swift */; };
 		74350C6A2AE2B645000C7EA7 /* BaluchonUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C692AE2B645000C7EA7 /* BaluchonUITests.swift */; };
 		74350C6C2AE2B645000C7EA7 /* BaluchonUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74350C6B2AE2B645000C7EA7 /* BaluchonUITestsLaunchTests.swift */; };
+		747F86372AE47DEF000C24CA /* CustomDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747F86362AE47DEF000C24CA /* CustomDesign.swift */; };
+		74AD69BE2AE41817007710CF /* Traduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69BD2AE41817007710CF /* Traduction.storyboard */; };
+		74AD69C02AE41827007710CF /* Weather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69BF2AE41827007710CF /* Weather.storyboard */; };
+		74AD69C22AE41835007710CF /* Converter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69C12AE41835007710CF /* Converter.storyboard */; };
+		74CB143D2AE42DC80082D7DB /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB143C2AE42DC80082D7DB /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,10 +43,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		741A7F502AE2CFFA001B77BE /* WeatherViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
+		741A7F522AE2D010001B77BE /* ConverterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterViewController.swift; sourceTree = "<group>"; };
+		741A7F542AE2D020001B77BE /* TraductionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TraductionViewController.swift; sourceTree = "<group>"; };
 		74350C452AE2B642000C7EA7 /* Baluchon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Baluchon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74350C482AE2B642000C7EA7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74350C4A2AE2B642000C7EA7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		74350C4C2AE2B642000C7EA7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		74350C4F2AE2B642000C7EA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		74350C512AE2B645000C7EA7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		74350C542AE2B645000C7EA7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -49,6 +58,11 @@
 		74350C652AE2B645000C7EA7 /* BaluchonUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BaluchonUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		74350C692AE2B645000C7EA7 /* BaluchonUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaluchonUITests.swift; sourceTree = "<group>"; };
 		74350C6B2AE2B645000C7EA7 /* BaluchonUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaluchonUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		747F86362AE47DEF000C24CA /* CustomDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDesign.swift; sourceTree = "<group>"; };
+		74AD69BD2AE41817007710CF /* Traduction.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Traduction.storyboard; sourceTree = "<group>"; };
+		74AD69BF2AE41827007710CF /* Weather.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Weather.storyboard; sourceTree = "<group>"; };
+		74AD69C12AE41835007710CF /* Converter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Converter.storyboard; sourceTree = "<group>"; };
+		74CB143C2AE42DC80082D7DB /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +113,13 @@
 		74350C472AE2B642000C7EA7 /* Baluchon */ = {
 			isa = PBXGroup;
 			children = (
-				74350C482AE2B642000C7EA7 /* AppDelegate.swift */,
-				74350C4A2AE2B642000C7EA7 /* SceneDelegate.swift */,
-				74350C4C2AE2B642000C7EA7 /* ViewController.swift */,
-				74350C4E2AE2B642000C7EA7 /* Main.storyboard */,
-				74350C512AE2B645000C7EA7 /* Assets.xcassets */,
-				74350C532AE2B645000C7EA7 /* LaunchScreen.storyboard */,
-				74350C562AE2B645000C7EA7 /* Info.plist */,
+				74CB143C2AE42DC80082D7DB /* ApiService.swift */,
+				747F86382AE54495000C24CA /* ApplicationLifeCycle */,
+				7464F2222AE2CF40005A0751 /* Model */,
+				7464F2212AE2CF3B005A0751 /* View */,
+				7464F2232AE2CF44005A0751 /* Controller */,
+				7464F2242AE2CF6F005A0751 /* Ressource */,
+				747F86352AE47DD7000C24CA /* Common */,
 			);
 			path = Baluchon;
 			sourceTree = "<group>";
@@ -125,6 +139,61 @@
 				74350C6B2AE2B645000C7EA7 /* BaluchonUITestsLaunchTests.swift */,
 			);
 			path = BaluchonUITests;
+			sourceTree = "<group>";
+		};
+		7464F2212AE2CF3B005A0751 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				74350C4E2AE2B642000C7EA7 /* Main.storyboard */,
+				74350C532AE2B645000C7EA7 /* LaunchScreen.storyboard */,
+				74AD69BD2AE41817007710CF /* Traduction.storyboard */,
+				74AD69BF2AE41827007710CF /* Weather.storyboard */,
+				74AD69C12AE41835007710CF /* Converter.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		7464F2222AE2CF40005A0751 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		7464F2232AE2CF44005A0751 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				741A7F502AE2CFFA001B77BE /* WeatherViewController.swift */,
+				741A7F522AE2D010001B77BE /* ConverterViewController.swift */,
+				741A7F542AE2D020001B77BE /* TraductionViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		7464F2242AE2CF6F005A0751 /* Ressource */ = {
+			isa = PBXGroup;
+			children = (
+				74350C512AE2B645000C7EA7 /* Assets.xcassets */,
+				74350C562AE2B645000C7EA7 /* Info.plist */,
+			);
+			path = Ressource;
+			sourceTree = "<group>";
+		};
+		747F86352AE47DD7000C24CA /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				747F86362AE47DEF000C24CA /* CustomDesign.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		747F86382AE54495000C24CA /* ApplicationLifeCycle */ = {
+			isa = PBXGroup;
+			children = (
+				74350C482AE2B642000C7EA7 /* AppDelegate.swift */,
+				74350C4A2AE2B642000C7EA7 /* SceneDelegate.swift */,
+			);
+			path = ApplicationLifeCycle;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,6 +301,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				74350C552AE2B645000C7EA7 /* LaunchScreen.storyboard in Resources */,
+				74AD69C22AE41835007710CF /* Converter.storyboard in Resources */,
+				74AD69C02AE41827007710CF /* Weather.storyboard in Resources */,
+				74AD69BE2AE41817007710CF /* Traduction.storyboard in Resources */,
 				74350C522AE2B645000C7EA7 /* Assets.xcassets in Resources */,
 				74350C502AE2B642000C7EA7 /* Main.storyboard in Resources */,
 			);
@@ -258,9 +330,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				74350C4D2AE2B642000C7EA7 /* ViewController.swift in Sources */,
+				747F86372AE47DEF000C24CA /* CustomDesign.swift in Sources */,
+				741A7F512AE2CFFA001B77BE /* WeatherViewController.swift in Sources */,
 				74350C492AE2B642000C7EA7 /* AppDelegate.swift in Sources */,
+				74CB143D2AE42DC80082D7DB /* ApiService.swift in Sources */,
+				741A7F552AE2D020001B77BE /* TraductionViewController.swift in Sources */,
 				74350C4B2AE2B642000C7EA7 /* SceneDelegate.swift in Sources */,
+				741A7F532AE2D010001B77BE /* ConverterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,7 +520,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2N573HT98J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Baluchon/Info.plist;
+				INFOPLIST_FILE = Baluchon/Ressource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -472,7 +548,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2N573HT98J;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Baluchon/Info.plist;
+				INFOPLIST_FILE = Baluchon/Ressource/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
