@@ -22,7 +22,6 @@
 		74AD69BE2AE41817007710CF /* Traduction.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69BD2AE41817007710CF /* Traduction.storyboard */; };
 		74AD69C02AE41827007710CF /* Weather.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69BF2AE41827007710CF /* Weather.storyboard */; };
 		74AD69C22AE41835007710CF /* Converter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74AD69C12AE41835007710CF /* Converter.storyboard */; };
-		74CB143D2AE42DC80082D7DB /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74CB143C2AE42DC80082D7DB /* ApiService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +61,6 @@
 		74AD69BD2AE41817007710CF /* Traduction.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Traduction.storyboard; sourceTree = "<group>"; };
 		74AD69BF2AE41827007710CF /* Weather.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Weather.storyboard; sourceTree = "<group>"; };
 		74AD69C12AE41835007710CF /* Converter.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Converter.storyboard; sourceTree = "<group>"; };
-		74CB143C2AE42DC80082D7DB /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,7 +111,6 @@
 		74350C472AE2B642000C7EA7 /* Baluchon */ = {
 			isa = PBXGroup;
 			children = (
-				74CB143C2AE42DC80082D7DB /* ApiService.swift */,
 				747F86382AE54495000C24CA /* ApplicationLifeCycle */,
 				7464F2222AE2CF40005A0751 /* Model */,
 				7464F2212AE2CF3B005A0751 /* View */,
@@ -333,7 +330,6 @@
 				747F86372AE47DEF000C24CA /* CustomDesign.swift in Sources */,
 				741A7F512AE2CFFA001B77BE /* WeatherViewController.swift in Sources */,
 				74350C492AE2B642000C7EA7 /* AppDelegate.swift in Sources */,
-				74CB143D2AE42DC80082D7DB /* ApiService.swift in Sources */,
 				741A7F552AE2D020001B77BE /* TraductionViewController.swift in Sources */,
 				74350C4B2AE2B642000C7EA7 /* SceneDelegate.swift in Sources */,
 				741A7F532AE2D010001B77BE /* ConverterViewController.swift in Sources */,
