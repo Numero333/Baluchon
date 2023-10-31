@@ -1,21 +1,22 @@
 //
-//  TranslationRequest.swift
+//  WeatherRequest.swift
 //  Baluchon
 //
-//  Created by François-Xavier on 23/10/2023.
+//  Created by François-Xavier on 29/10/2023.
 //
 
 import Foundation
 
-struct TranslationRequest: Codable {
+struct WeatherRequest: Encodable {
     
-    let query: String
+    let key = APIKey.googleTranslateApiKey
+    let q: String
     let source: String
     let target: String
     let format: String
     
-    init(query: String, source: String, target: String, format: String) {
-        self.query = query
+    init(q: String, source: String, target: String, format: String) {
+        self.q = q
         self.source = source
         self.target = target
         self.format = format
@@ -23,8 +24,8 @@ struct TranslationRequest: Codable {
     
     var value: [String:String] {
         return [
-            "key" : APIKey.googleTranslateApiKey,
-            "q" : query,
+            "key" : key,
+            "q" : q,
             "source" : source,
             "target" : target,
             "format" : format

@@ -19,21 +19,22 @@ import Foundation
 
 struct APIService<T: Codable> {
     
-    static func performRequest(url: EndPoint, method: HttpMethod, parameters: [String: String]?) async -> Result<T, APIError> {
+    static func performRequest(apiRequest: APIRequest) async -> Result<T, APIError> {
         
         // Create url with our parameters
-        var components = URLComponents(string: url.value)
-        if let parameters = parameters {
+        var components = URLComponents(string: apiRequest.url.value)
+    
+        if let parameters = apiRequest.parameters {
             components?.queryItems = parameters.map { URLQueryItem(name: $0.key, value: $0.value) }
         }
-        
+                
         guard let url = components?.url else {
             return .failure(.invalidUrl)
         }
         
         // Create the request
         var request = URLRequest(url: url)
-        request.httpMethod = method.rawValue
+        request.httpMethod = apiRequest.method.rawValue
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         do {
@@ -44,7 +45,7 @@ struct APIService<T: Codable> {
                 return .failure(.unknownError)
             }
             
-            if httpResponse.statusCode != 200 {
+            if !(200...299).contains(httpResponse.statusCode) {
                 return .failure(.invalidResponse(httpResponse.statusCode))
             }
             
@@ -57,4 +58,3 @@ struct APIService<T: Codable> {
         }
     }
 }
-
