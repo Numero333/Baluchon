@@ -35,7 +35,6 @@
 		74D049AA2AEEA8E0003A89BE /* WeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D049A92AEEA8E0003A89BE /* WeatherResponse.swift */; };
 		74D049AC2AEEA8E9003A89BE /* ConverterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D049AB2AEEA8E9003A89BE /* ConverterResponse.swift */; };
 		74D049AE2AEEA8FC003A89BE /* TranslateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D049AD2AEEA8FC003A89BE /* TranslateResponse.swift */; };
-		74D049B22AEEAFB4003A89BE /* WeatherRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74D049B12AEEAFB4003A89BE /* WeatherRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +87,6 @@
 		74D049A92AEEA8E0003A89BE /* WeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherResponse.swift; sourceTree = "<group>"; };
 		74D049AB2AEEA8E9003A89BE /* ConverterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterResponse.swift; sourceTree = "<group>"; };
 		74D049AD2AEEA8FC003A89BE /* TranslateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslateResponse.swift; sourceTree = "<group>"; };
-		74D049B12AEEAFB4003A89BE /* WeatherRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,7 +193,6 @@
 			isa = PBXGroup;
 			children = (
 				744ADAF32AE821900026F9C3 /* TranslationRequest.swift */,
-				74D049B12AEEAFB4003A89BE /* WeatherRequest.swift */,
 			);
 			path = RequestModel;
 			sourceTree = "<group>";
@@ -410,7 +407,6 @@
 				74213F2A2AE912E4004021D9 /* TranslationModel.swift in Sources */,
 				74788DF32AF1440900362B59 /* Alert.swift in Sources */,
 				741A7F512AE2CFFA001B77BE /* WeatherViewController.swift in Sources */,
-				74D049B22AEEAFB4003A89BE /* WeatherRequest.swift in Sources */,
 				74D049A52AEEA875003A89BE /* AppServiceDelegate.swift in Sources */,
 				74350C492AE2B642000C7EA7 /* AppDelegate.swift in Sources */,
 				741A7F552AE2D020001B77BE /* TraductionViewController.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TranslationRequest: Codable {
+struct TranslationRequest {
     
     let query: String
     let source: String

@@ -40,12 +40,12 @@ struct APIService<T: Codable> {
         do {
             // Sending the request
             let (data, response) = try await URLSession.shared.data(for: request)
-            
+                        
             guard let httpResponse = response as? HTTPURLResponse else {
                 return .failure(.unknownError)
             }
             
-            if !(200...299).contains(httpResponse.statusCode) {
+            guard (200...299).contains(httpResponse.statusCode) else {
                 return .failure(.invalidResponse(httpResponse.statusCode))
             }
             
