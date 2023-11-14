@@ -19,8 +19,14 @@ import Foundation
 
 struct APIService<T: Codable> {
     
-    static func performRequest(apiRequest: APIRequest) async -> Result<T, APIError> {
+    let urlSession: URLSession
+    
+    init(urlSession: URLSession = URLSession.shared){
+        self.urlSession = urlSession
+    }
         
+    static func performRequest(apiRequest: APIRequest, urlSession: URLSession = URLSession.shared) async -> Result<T, APIError> {
+
         // Create url with our parameters
         var components = URLComponents(string: apiRequest.url.value)
     
@@ -39,7 +45,7 @@ struct APIService<T: Codable> {
         
         do {
             // Sending the request
-            let (data, response) = try await URLSession.shared.data(for: request)
+            let (data, response) = try await urlSession.data(for: request)
                         
             guard let httpResponse = response as? HTTPURLResponse else {
                 return .failure(.unknownError)

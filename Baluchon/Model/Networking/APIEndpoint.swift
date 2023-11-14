@@ -21,7 +21,6 @@ struct APIRequest {
         var value: String {
             
             switch self {
-                
             case .fixer:
                 return BaseUrl.fixer.rawValue + Path.convertRate + APIKey.fixerApiKey
             case .googleTranslate:
