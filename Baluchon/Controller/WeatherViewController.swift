@@ -7,31 +7,33 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, AppServiceDelegate {
+final class WeatherViewController: UIViewController, AppServiceDelegate {
+
+    //MARK: - Property
+    @IBOutlet private var localWeatherTextView: UITextView!
     
-    @IBOutlet weak var localWeatherLabel: UILabel!
-    @IBOutlet weak var remoteWeatherLabel: UILabel!
+    let model = WeatherModel()
     
-    var model = WeatherModel()
-    
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         model.delegate = self
-        
+        Task {
+            await model.getWeather()
+        }
         view.linearGradientBackground()
     }
     
+    //MARK: - AppServiceDelegate
     func didFail(error: APIError) {
-        Alert.display(vc: self, message: error.description)
+        DispatchQueue.main.async {
+            Alert.display(vc: self, message: error.description)
+        }
     }
     
     func didUpdate(result: String) {
-        Task.detached {
-            DispatchQueue.main.async {
-                self.remoteWeatherLabel.text = " ok"
-                self.localWeatherLabel.text = "ok"
-            }
+        DispatchQueue.main.async {
+            self.localWeatherTextView.text = result
         }
     }
 }
