@@ -8,20 +8,7 @@
 import Foundation
 import UIKit
 
-class CustomDesign: UIView {
-    
-    static func createLinearGradientBackground(view: UIView,color: CGColor) {
-        let gradient = CAGradientLayer()
-        gradient.frame = view.bounds
-        gradient.colors = [color, UIColor.white.cgColor]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        view.layer.insertSublayer(gradient, at: 0)
-    }
-}
-
 extension UIView {
-    
     func linearGradientBackground() {
         let gradient = CAGradientLayer()
         gradient.frame = bounds
