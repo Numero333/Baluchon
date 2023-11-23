@@ -58,20 +58,36 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
         return true
     }
     
+    //MARK: - Private
+    
     private func makeMenu(for button: UIButton, index: Int) {
         button.menu = UIMenu(title: "Language", children: makeValueMenu(index: index))
     }
     
     private func makeValueMenu(index: Int) -> [UIMenuElement] {
         var menuElement: [UIMenuElement] = []
-        
         for language in Language.allCases {
             menuElement.append(
                 UIAction(title: "\(language)",
                          handler: {_ in 
-                             self.model.handleLanguageSelection(language: language.rawValue, index: index)
+                             self.model.handleLanguageSelection(language: language, index: index)
+                             print(language)
                          }
                         ))}
+        self.selectionState(index: index, for: menuElement)
         return menuElement
+    }
+    
+    private func selectionState(index: Int, for elements: [UIMenuElement]) {
+        if index == 0 {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.translateFrom }) as? UIAction {
+                element.state = .on
+            }
+        } else if index == 1 {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.translateTo }) as? UIAction {
+                element.state = .on
+//                print("state")
+            }
+        }
     }
 }
