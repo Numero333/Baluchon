@@ -27,7 +27,7 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
         makeMenu(for: buttonFromCurrency, index: 0)
         makeMenu(for: buttonToCurrency, index: 1)
         Task {
-            await model.getRates()
+            await model.loadData()
         }
     }
     
@@ -61,11 +61,7 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
     
     private func makeValueMenu(index: Int) -> [UIMenuElement] {
         var menuElement: [UIMenuElement] = []
-        
-//            .reversed()
-        
         for currency in Currency.allCases {
-            
             menuElement.append(
                 UIAction(title: currency.rawValue,
                          subtitle: currency.description,
@@ -74,6 +70,23 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
                              self.model.handleCurrencySelection(currency: currency.title, index: index)
                          }
                         ))}
+        self.selectionState(index: index, for: menuElement)
+        if index == 1 {
+            menuElement.reverse()
+        }
         return menuElement
+    }
+    
+    private func selectionState(index: Int, for elements: [UIMenuElement]) {
+        if index == 1 {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.fromCurrency }) as? UIAction {
+                element.state = .on
+            }
+        } else if index == 0 {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.toCurrency }) as? UIAction {
+                element.state = .on
+                print("state")
+            }
+        }
     }
 }
