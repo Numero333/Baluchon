@@ -11,6 +11,12 @@ struct WeatherResponse: Codable {
     
     let main: MainWeather
     
+    let weather: [Weather]
+    
+    struct Weather: Codable {
+        let description: String
+    }
+    
     struct MainWeather: Codable {
         let temp: Double
     }
