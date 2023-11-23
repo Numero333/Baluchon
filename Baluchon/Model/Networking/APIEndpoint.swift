@@ -26,7 +26,7 @@ struct APIRequest {
             case .googleTranslate:
                 return BaseUrl.google.rawValue + Path.translate + APIKey.googleTranslateApiKey
             case .openWeather:
-                return BaseUrl.openWeatherMap.rawValue + Path.weather + "5128638" + "&appid=" + APIKey.openWeatherApikey
+                return BaseUrl.openWeatherMap.rawValue + Path.weather +  APIKey.openWeatherApikey + "&units=metric"
             }
         }
     }
@@ -38,10 +38,13 @@ enum BaseUrl:String {
     case openWeatherMap = "https://api.openweathermap.org"
 }
 
+// New shit use CLGeocoder
+//https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid={API key}
+
 enum Path {
     static let convertRate = "/api/latest?access_key="
     static let translate = "/language/translate/v2?key="
-    static let weather = "/data/2.5/weather?id="
+    static let weather = "/data/2.5/weather?appid="
 }
 
 enum HTTPMethod: String {
