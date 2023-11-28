@@ -16,6 +16,10 @@ import Foundation
 ///   - url: The `EndPoint` representing the URL of the API endpoint to be called.
 ///   - method: The HTTP request method.
 ///   - parameters: Optional query parameters to include in the request.
+  
+protocol URLSessionProtocol {
+    func data(for request: URLRequest) async throws -> (Data, URLResponse)
+}
 
 struct APIService<T: Codable> {
     

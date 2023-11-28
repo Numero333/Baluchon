@@ -33,7 +33,6 @@ final class ConverterModel {
     func handleCurrencySelection(currency: String, index: Int) {
         if index == 0 {
             saveCurrency(value: currency, key: "FromCurrencyChoice")
-            print("saved")
         } else {
             saveCurrency(value: currency, key: "ToCurrencyChoice")
         }
@@ -52,9 +51,6 @@ final class ConverterModel {
     private func calculateConversion(amount: String) -> String {
         guard let amountDouble = Double(amount) else { return "Error please try again" }
         let result = (amountDouble * mapper(for: fromCurrency) ) /  mapper(for: toCurrency)
-        print(amountDouble * mapper(for: fromCurrency))
-        print(amountDouble * mapper(for: toCurrency))
-        print((amountDouble * mapper(for: fromCurrency) ) / ( mapper(for: toCurrency)))
         return String(result)
     }
     

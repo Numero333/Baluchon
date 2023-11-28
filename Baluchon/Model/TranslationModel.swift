@@ -32,7 +32,6 @@ import Foundation
         weak var delegate: AppServiceDelegate?
         
         func getTranslation(text: String) {
-            print("translate: \(translateFromAPI) to \(translateToAPI)")
             Task {
                 switch await APIService<TranslationResponse>.performRequest(
                     apiRequest: APIRequest(url: .googleTranslate,
@@ -50,13 +49,11 @@ import Foundation
         
         func handleLanguageSelection(language: Language, index: Int) {
             if index == 0 {
-                print(language)
                 saveLanguage(value: String(describing: language), key: "TranslateFrom")
                 saveLanguage(value: language.rawValue, key: "TranslateFromApi")
             } else {
                 saveLanguage(value: String(describing: language), key: "TranslateTo")
                 saveLanguage(value: language.rawValue, key: "TranslateToApi")
-                print("save api \(language.rawValue)")
             }
         }
         

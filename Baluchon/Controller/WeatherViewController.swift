@@ -5,15 +5,17 @@
 //  Created by François-Xavier on 20/10/2023.
 //
 
+#warning("Arbo per feature")
+
 import UIKit
 
-final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, WeatherDelegate {
+final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, WeatherModelDelegate {
 
     //MARK: - Property
-    @IBOutlet weak var localtempLabel: UILabel!
+    @IBOutlet weak var localTemperatureLabel: UILabel!
     @IBOutlet weak var localInfoLabel: UILabel!
     
-    @IBOutlet weak var distantTempLabel: UILabel!
+    @IBOutlet weak var distantTemperatureLabel: UILabel!
     @IBOutlet weak var distantInfoLabel: UILabel!
     
     @IBOutlet weak var localImage: UIImageView!
@@ -32,9 +34,8 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
         configureLocalPicker()
         configureDistantPicker()
         
-        Task {
-            await model.loadData()
-        }
+        model.loadData()
+        
         view.linearGradientBackground()
     }
     
@@ -45,9 +46,9 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
     }
     
-    func didUpdateLocalTemp(result: String) {
+    func didUpdateLocalTemperature(result: String) {
         DispatchQueue.main.async {
-            self.localtempLabel.text = result
+            self.localTemperatureLabel.text = result
         }
     }
     
@@ -57,9 +58,9 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
         }
     }
     
-    func didUpdateDistantTemp(result: String) {
+    func didUpdateDistantTemperature(result: String) {
         DispatchQueue.main.async {
-            self.distantTempLabel.text = result
+            self.distantTemperatureLabel.text = result
         }
     }
     
@@ -70,9 +71,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func refresh(_ sender: Any) {
-        Task {
-            await self.model.loadData()
-        }
+             self.model.loadData()
     }
     
     //MARK: - UIPickerDelegate
@@ -95,7 +94,6 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
         case 1 : self.model.handleCitySelection(city: selected, index: 1, row: row)
         default: self.model.handleCitySelection(city: selected, index: 0, row: row)
         }
-        print("did select \(selected)")
     }
     
     //MARK: - Private

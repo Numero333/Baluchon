@@ -71,7 +71,6 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
                 UIAction(title: "\(language)",
                          handler: {_ in 
                              self.model.handleLanguageSelection(language: language, index: index)
-                             print(language)
                          }
                         ))}
         self.selectionState(index: index, for: menuElement)
@@ -86,7 +85,6 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
         } else if index == 1 {
             if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.translateTo }) as? UIAction {
                 element.state = .on
-//                print("state")
             }
         }
     }

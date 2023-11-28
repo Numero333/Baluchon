@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol WeatherDelegate: AnyObject {
+protocol WeatherModelDelegate: AnyObject {
     func didFail(error: APIError)
-    func didUpdateLocalTemp(result: String)
+    func didUpdateLocalTemperature(result: String)
     func didUpdateLocalInfo(result: String)
-    func didUpdateDistantTemp(result: String)
+    func didUpdateDistantTemperature(result: String)
     func didUpdateDistantInfo(result: String)
 }
 
@@ -45,13 +45,13 @@ final class WeatherModel {
     }
     
     //MARK: - Accesible
-    weak var delegate: WeatherDelegate?
+    weak var delegate: WeatherModelDelegate?
         
-    func loadData() async {
+    func loadData() {
         Task {
             switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: FromCityLat, longitude: FromCityLon).value)){
             case .success(let weather):
-                delegate?.didUpdateLocalTemp(result: weather.main.temp.description)
+                delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
                 delegate?.didUpdateLocalInfo(result: weather.weather[0].description)
             case .failure(let error):
                 delegate?.didFail(error: error)
@@ -61,7 +61,7 @@ final class WeatherModel {
         Task {
             switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: ToCityLat, longitude: ToCityLon).value)){
             case .success(let weather):
-                delegate?.didUpdateDistantTemp(result: weather.main.temp.description)
+                delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
                 delegate?.didUpdateDistantInfo(result: weather.weather[0].description)
             case .failure(let error):
                 delegate?.didFail(error: error)
@@ -74,12 +74,10 @@ final class WeatherModel {
             saveCity(value: city.coordinates.latitude, key: "FromCityLat")
             saveCity(value: city.coordinates.longitude, key: "FromCityLon")
             cityChoice.set(row, forKey: "FromCityRow")
-            print("saved \(city) with \(city.coordinates.latitude)")
         } else {
             saveCity(value: city.coordinates.latitude, key: "ToCityLat")
             saveCity(value: city.coordinates.longitude, key: "ToCityLon")
             cityChoice.set(row, forKey: "ToCityRow")
-            print("saved \(city) with \(city.coordinates.latitude)")
         }
     }
         

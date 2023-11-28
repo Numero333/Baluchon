@@ -66,7 +66,6 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
                 UIAction(title: currency.rawValue,
                          subtitle: currency.description,
                          handler: { currency in
-                             print(currency.title)
                              self.model.handleCurrencySelection(currency: currency.title, index: index)
                          }
                         ))}
@@ -85,7 +84,6 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
         } else if index == 0 {
             if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.toCurrency }) as? UIAction {
                 element.state = .on
-                print("state")
             }
         }
     }
