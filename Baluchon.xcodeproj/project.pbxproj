@@ -34,7 +34,6 @@
 		744EBE072AF3C75600A76E10 /* WeatherViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744EBE042AF3C75600A76E10 /* WeatherViewController.swift */; };
 		744EBE082AF3C75600A76E10 /* TraductionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 744EBE052AF3C75600A76E10 /* TraductionViewController.swift */; };
 		745610532B03A6A000137C81 /* Language.swift in Sources */ = {isa = PBXBuildFile; fileRef = 745610522B03A6A000137C81 /* Language.swift */; };
-		7465688E2B0F8A89005E55FD /* FakeResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465688D2B0F8A89005E55FD /* FakeResponseData.swift */; };
 		746568902B0F8DA3005E55FD /* URLSessionFake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7465688F2B0F8DA3005E55FD /* URLSessionFake.swift */; };
 		746568922B0F90B2005E55FD /* ConverterAPIServiceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 746568912B0F90B2005E55FD /* ConverterAPIServiceTest.swift */; };
 		747F86372AE47DEF000C24CA /* CustomDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 747F86362AE47DEF000C24CA /* CustomDesign.swift */; };
@@ -96,7 +95,6 @@
 		744EBE042AF3C75600A76E10 /* WeatherViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherViewController.swift; sourceTree = "<group>"; };
 		744EBE052AF3C75600A76E10 /* TraductionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraductionViewController.swift; sourceTree = "<group>"; };
 		745610522B03A6A000137C81 /* Language.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Language.swift; sourceTree = "<group>"; };
-		7465688D2B0F8A89005E55FD /* FakeResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeResponseData.swift; sourceTree = "<group>"; };
 		7465688F2B0F8DA3005E55FD /* URLSessionFake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionFake.swift; sourceTree = "<group>"; };
 		746568912B0F90B2005E55FD /* ConverterAPIServiceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverterAPIServiceTest.swift; sourceTree = "<group>"; };
 		747F86362AE47DEF000C24CA /* CustomDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDesign.swift; sourceTree = "<group>"; };
@@ -174,7 +172,6 @@
 				748741562AFA841600469CA5 /* Converter.json */,
 				748741582AFA842A00469CA5 /* Translate.json */,
 				7487415A2AFA843D00469CA5 /* Weather.json */,
-				7465688D2B0F8A89005E55FD /* FakeResponseData.swift */,
 				7465688F2B0F8DA3005E55FD /* URLSessionFake.swift */,
 				746568912B0F90B2005E55FD /* ConverterAPIServiceTest.swift */,
 			);
@@ -464,7 +461,6 @@
 			files = (
 				74350C602AE2B645000C7EA7 /* BaluchonTests.swift in Sources */,
 				746568902B0F8DA3005E55FD /* URLSessionFake.swift in Sources */,
-				7465688E2B0F8A89005E55FD /* FakeResponseData.swift in Sources */,
 				746568922B0F90B2005E55FD /* ConverterAPIServiceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
