@@ -18,8 +18,8 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     @IBOutlet weak var distantTemperatureLabel: UILabel!
     @IBOutlet weak var distantInfoLabel: UILabel!
     
-    @IBOutlet weak var localImage: UIImageView!
-    @IBOutlet weak var distantImage: UIImageView!
+//    @IBOutlet weak var localImage: UIImageView!
+//    @IBOutlet weak var distantImage: UIImageView!
     
     @IBOutlet weak var localPicker: UIPickerView!
     @IBOutlet weak var distantPicker: UIPickerView!

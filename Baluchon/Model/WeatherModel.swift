@@ -52,7 +52,7 @@ final class WeatherModel {
             switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: FromCityLat, longitude: FromCityLon).value)){
             case .success(let weather):
                 delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateLocalInfo(result: weather.weather[0].description)
+                delegate?.didUpdateLocalInfo(result: weather.weather[0].description.capitalizingFirstLetter())
             case .failure(let error):
                 delegate?.didFail(error: error)
             }
@@ -62,7 +62,7 @@ final class WeatherModel {
             switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: ToCityLat, longitude: ToCityLon).value)){
             case .success(let weather):
                 delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateDistantInfo(result: weather.weather[0].description)
+                delegate?.didUpdateDistantInfo(result: weather.weather[0].description.capitalizingFirstLetter())
             case .failure(let error):
                 delegate?.didFail(error: error)
             }

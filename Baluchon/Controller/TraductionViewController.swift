@@ -7,6 +7,8 @@
 
 import UIKit
 
+//Handle decimal part "," vers "."
+
 final class TraductionViewController: UIViewController, AppServiceDelegate, UITextViewDelegate {
     
     //MARK: - Property
@@ -68,8 +70,8 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
         var menuElement: [UIMenuElement] = []
         for language in Language.allCases {
             menuElement.append(
-                UIAction(title: "\(language)",
-                         handler: {_ in 
+                UIAction(title: "\(language)".capitalizingFirstLetter(),
+                         handler: {_ in
                              self.model.handleLanguageSelection(language: language, index: index)
                          }
                         ))}

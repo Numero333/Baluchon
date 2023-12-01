@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Cdw-pt-TNc">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Traduction-->
+        <scene sceneID="8eb-eM-8e3">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Traduction" storyboardName="Traduction" id="rTM-Q3-342" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Traduction" id="7nX-rz-lH6">
+                        <imageReference key="image" image="arrow.left.arrow.right" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qHB-Bn-xtD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1409" y="-313"/>
+        </scene>
+        <!--Weather-->
+        <scene sceneID="qc3-Nz-nlS">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Weather" storyboardName="Weather" id="3HT-Mf-KcR" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Weather" id="1Li-gj-qMB">
+                        <imageReference key="image" image="sun.max.fill" catalog="system" symbolScale="large"/>
+                    </tabBarItem>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VfI-ee-k0w" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1102" y="-313"/>
+        </scene>
+        <!--Converter-->
+        <scene sceneID="i8x-h0-o6P">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Converter" storyboardName="Converter" id="IFv-ka-Xgd" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Converter" badgeValue="Converter" selectedImage="square.and.arrow.up" catalog="system" id="K9p-lE-YMy">
+                        <imageReference key="image" image="coloncurrencysign.arrow.circlepath" catalog="system"/>
+                        <color key="badgeColor" name="AccentColor"/>
+                    </tabBarItem>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qut-Bl-cCl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1741" y="-313"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="6ZL-pE-qLa">
+            <objects>
+                <tabBarController id="Cdw-pt-TNc" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Sdh-pQ-YKn">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="IFv-ka-Xgd" kind="relationship" relationship="viewControllers" id="M4q-T1-GW1"/>
+                        <segue destination="rTM-Q3-342" kind="relationship" relationship="viewControllers" id="wF0-4E-Bbu"/>
+                        <segue destination="3HT-Mf-KcR" kind="relationship" relationship="viewControllers" id="uw9-tm-AQX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RlJ-Ub-VWE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1408" y="-812"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="arrow.left.arrow.right" catalog="system" width="120" height="128"/>
+        <image name="coloncurrencysign.arrow.circlepath" catalog="system" width="128" height="112"/>
+        <image name="square.and.arrow.up" catalog="system" width="108" height="128"/>
+        <image name="sun.max.fill" catalog="system" width="128" height="125"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>
