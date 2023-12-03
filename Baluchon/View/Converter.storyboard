@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Y6W-OH-hqX">
+    <device id="retina4_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Converter-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="Converter" title="Converter" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="ConverterViewController" customModule="Baluchon" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency Converter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lfv-S1-S6X">
+                                <rect key="frame" x="54.5" y="40" width="211" height="29"/>
+                                <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="26"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WdT-wz-Kv8">
+                                <rect key="frame" x="40" y="419" width="240" height="50"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Convert" cornerStyle="capsule">
+                                    <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="convertButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Pf6-vX-4Mb"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sLQ-Xg-lux">
+                                <rect key="frame" x="20" y="193" width="192" height="60"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
+                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVq-gt-FaP">
+                                <rect key="frame" x="32" y="283" width="256" height="2"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="nzg-0X-hCg"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qaz-lP-tnU">
+                                <rect key="frame" x="20" y="315" width="192" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" staticText="YES" notEnabled="YES"/>
+                                </accessibility>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ONo-le-m8L">
+                                <rect key="frame" x="225" y="313" width="75" height="60"/>
+                                <menu key="menu" id="f0L-eE-MWe">
+                                    <children>
+                                        <command title="Item 1" id="mq2-WI-yWs"/>
+                                        <command title="Item 2" id="8Ph-BW-d0I"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button">
+                                    <color key="baseBackgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                </buttonConfiguration>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rmD-g7-FWh">
+                                <rect key="frame" x="225" y="193" width="75" height="60"/>
+                                <menu key="menu" id="PzU-pH-FvX">
+                                    <children>
+                                        <command title="Item 1" id="95V-e1-r5W"/>
+                                        <command title="Item 2" id="O49-1c-4dB"/>
+                                    </children>
+                                </menu>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="Button">
+                                    <color key="baseBackgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                </buttonConfiguration>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="sLQ-Xg-lux" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.6" id="0dK-nM-ma2"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="0va-aV-3Mv"/>
+                            <constraint firstItem="qaz-lP-tnU" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.6" id="8SH-9G-8Kc"/>
+                            <constraint firstItem="ONo-le-m8L" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.15" id="9eT-lR-kLo"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="rmD-g7-FWh" secondAttribute="trailing" constant="20" id="A6y-gL-hSz"/>
+                            <constraint firstItem="WdT-wz-Kv8" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="BhF-RE-0VW"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.8" id="DbZ-OO-puA"/>
+                            <constraint firstItem="lfv-S1-S6X" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="Ihp-pM-gZW"/>
+                            <constraint firstItem="qaz-lP-tnU" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="JVV-l1-aMP"/>
+                            <constraint firstItem="rmD-g7-FWh" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.12" id="N2Q-v7-RvX"/>
+                            <constraint firstItem="ONo-le-m8L" firstAttribute="top" secondItem="iVq-gt-FaP" secondAttribute="top" constant="30" id="OUM-eo-GIr"/>
+                            <constraint firstItem="sLQ-Xg-lux" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.12" id="QgW-SK-NIc"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="top" secondItem="rmD-g7-FWh" secondAttribute="bottom" constant="30" id="RhZ-bS-Z44"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="top" secondItem="rmD-g7-FWh" secondAttribute="bottom" constant="30" id="SPq-mG-8jp"/>
+                            <constraint firstItem="WdT-wz-Kv8" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.1" id="VGH-gm-iGd"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="ONo-le-m8L" secondAttribute="trailing" constant="20" id="VJP-NU-9oT"/>
+                            <constraint firstItem="rmD-g7-FWh" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.15" id="VyY-2I-xVj"/>
+                            <constraint firstItem="lfv-S1-S6X" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="aOo-ku-QrT"/>
+                            <constraint firstItem="qaz-lP-tnU" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.12" id="cNK-ai-DSC"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="top" secondItem="sLQ-Xg-lux" secondAttribute="bottom" constant="30" id="eeH-Yb-zeb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="WdT-wz-Kv8" secondAttribute="bottom" constant="50" id="fMm-bQ-XXT"/>
+                            <constraint firstItem="qaz-lP-tnU" firstAttribute="top" secondItem="iVq-gt-FaP" secondAttribute="bottom" constant="30" id="h0T-Wc-Pge"/>
+                            <constraint firstItem="ONo-le-m8L" firstAttribute="height" secondItem="vDu-zF-Fre" secondAttribute="height" multiplier="0.12" id="onk-AZ-WrE"/>
+                            <constraint firstItem="iVq-gt-FaP" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="rZl-pR-mhn"/>
+                            <constraint firstItem="sLQ-Xg-lux" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="wQX-eJ-aDH"/>
+                            <constraint firstItem="WdT-wz-Kv8" firstAttribute="width" secondItem="vDu-zF-Fre" secondAttribute="width" multiplier="0.75" id="yK6-BD-m5w"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Bjf-Cd-13J" appends="YES" id="ul2-Op-h1V"/>
+                        </connections>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Converter" image="coloncurrencysign.arrow.circlepath" catalog="system" id="IB7-OO-fLl"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="buttonFromCurrency" destination="rmD-g7-FWh" id="1Rp-WA-6BE"/>
+                        <outlet property="buttonToCurrency" destination="ONo-le-m8L" id="I0G-Gx-yAM"/>
+                        <outlet property="resultView" destination="qaz-lP-tnU" id="lTc-GS-oY7"/>
+                        <outlet property="textField" destination="sLQ-Xg-lux" id="Drh-hB-xIj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Bjf-Cd-13J">
+                    <connections>
+                        <action selector="dismissKeyboard:" destination="Y6W-OH-hqX" id="ytM-6i-LgP"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="130.53435114503816" y="-34.507042253521128"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="coloncurrencysign.arrow.circlepath" catalog="system" width="128" height="112"/>
+        <systemColor name="secondarySystemBackgroundColor">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
