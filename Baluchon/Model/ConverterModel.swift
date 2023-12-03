@@ -6,20 +6,19 @@
 //
 
 import Foundation
-//import UIKit
 
 final class ConverterModel {
     
     //MARK: - Property
-    private var rating: ConverterResponse.Currency?
+    var rating: ConverterResponse.Currency?
     
     private var currencyChoice = UserDefaults.standard
     
     var fromCurrency: String {
-        return currencyChoice.string(forKey: "ToCurrencyChoice") ?? "EUR"
+        return currencyChoice.string(forKey: "FromCurrencyChoice") ?? "EUR"
     }
     var toCurrency: String {
-        currencyChoice.string(forKey: "FromCurrencyChoice") ?? "USD"
+        currencyChoice.string(forKey: "ToCurrencyChoice") ?? "USD"
     }
     
     //MARK: - Accesible
@@ -38,7 +37,6 @@ final class ConverterModel {
         }
     }
     
-    //MARK: - Private
     func loadData() async {
         switch await APIService<ConverterResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: nil)) {
         case .success(let conversion) :
@@ -47,10 +45,10 @@ final class ConverterModel {
         }
     }
     
-    // Mauvaise gestion de l'erreur
+    //MARK: - Private
     private func calculateConversion(amount: String) -> String {
         guard let amountDouble = Double(amount) else { return "Error please try again" }
-        let result = (amountDouble * mapper(for: fromCurrency) ) /  mapper(for: toCurrency)
+        let result = (amountDouble * mapper(for: fromCurrency) ) / mapper(for: toCurrency)
         return String(result)
     }
     
@@ -68,5 +66,5 @@ final class ConverterModel {
     private func saveCurrency(value: String, key: String) {
         currencyChoice.set(value, forKey: key)
     }
-        
+    
 }
