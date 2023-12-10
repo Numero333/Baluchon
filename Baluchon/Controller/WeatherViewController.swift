@@ -40,7 +40,6 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     func didUpdateLocalTemperature(result: String) {
-        print("call from darkest place")
         DispatchQueue.main.async {
             self.localTemperatureLabel.text = result
         }

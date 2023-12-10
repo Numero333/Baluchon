@@ -44,9 +44,7 @@ struct APIService<T: Codable> {
         guard let url = components?.url else {
             return .failure(.invalidUrl)
         }
-        
-        print(url)
-        
+                
         // Create the request
         var request = URLRequest(url: url)
         request.httpMethod = apiRequest.method.rawValue
