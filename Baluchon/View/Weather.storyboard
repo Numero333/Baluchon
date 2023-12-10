@@ -185,7 +185,7 @@
                             <outletCollection property="gestureRecognizers" destination="9Cg-vw-rNH" appends="YES" id="I1m-76-FfC"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Traduction" image="arrow.left.arrow.right" catalog="system" id="2DB-fL-2pC"/>
+                    <tabBarItem key="tabBarItem" title="Weather" image="sun.max.fill" catalog="system" id="2DB-fL-2pC"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="distantInfoLabel" destination="19d-Kp-IQC" id="Suq-kd-c0v"/>
@@ -203,7 +203,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.left.arrow.right" catalog="system" width="120" height="128"/>
         <image name="sun.max.fill" catalog="system" width="128" height="125"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

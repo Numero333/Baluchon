@@ -10,39 +10,33 @@ import XCTest
 
 final class TranslationModelTest: XCTestCase {
     
-    
-    private var session: URLSession!
-    private var url: URL!
-    
-    private var data: Data!
-    
-    private var model: TranslationModel!
-    private var delegate: MockAppServiceDelegate!
-    
-    override func setUp() {
-        url = URL(string: APIRequest.RequestURL.googleTranslate.value)
-        
+    private var session: URLSession! = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [FakeURLSessionProtocol.self]
-        session = URLSession(configuration: configuration)
-        
-        let bundle = Bundle(for: TranslationModelTest.self)
-        
+        return URLSession(configuration: configuration)
+    }()
+    
+    private var data: Data! = {
+        let bundle = Bundle(for: WeatherModelTest.self)
         let url = bundle.url(forResource: "Translate", withExtension: "json")
-        
-        data = try! Data(contentsOf: url!)
-        
-        model = TranslationModel()
-        delegate = MockAppServiceDelegate()
+        return try! Data(contentsOf: url!)
+    }()
+    
+    private var url: URL! =  URL(string: APIRequest.RequestURL.googleTranslate.value)
+    private var model: TranslationModel = TranslationModel()
+    private var delegate: MockTranslationModelDelegate = MockTranslationModelDelegate()
+    
+    override func setUp() {
+        model.apiService = APIService<TranslationResponse>(urlSession: session)
+        model.delegate = delegate
     }
     
     override func tearDown() {
         session = nil
-        url = nil
     }
     
     func testHandleLanguageSelection() async {
-            
+        
         // Given
         model.handleLanguageSelection(language: .french, index: 0)
         model.handleLanguageSelection(language: .english, index: 1)
@@ -52,67 +46,11 @@ final class TranslationModelTest: XCTestCase {
         XCTAssertEqual(model.translateTo, "english")
     }
     
-    func testAPIRequestWithCorrectResponse() async {
+    func testGetTranslation() async {
         
         // Given
-        FakeURLSessionProtocol.loadingData = {
-            let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (response!, self.data)
-        }
-        
-        // When
-        _ = switch await APIService<TranslationResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: TranslationRequest(query: "Bonjour", source: "fr", target: "en", format: "text").value), urlSession: session) {
-            
-            // Then
-        case .success(_):
-            XCTAssertTrue(true)
-        case .failure(_):
-            XCTAssertNil(true)
-        }
-    }
-    
-    func testAPIRequestWithUncorrectResponse() async {
-        
-        // Given
-        FakeURLSessionProtocol.loadingData = {
-            let response = HTTPURLResponse(url: self.url, statusCode: 500, httpVersion: nil, headerFields: nil)
-            return (response!, self.data)
-        }
-        
-        // When
-        _ = switch await APIService<TranslationResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: TranslationRequest(query: "Bonjour", source: "fr", target: "en", format: "text").value), urlSession: session) {
-            
-            // Then
-        case .success(_):
-            XCTAssertNil(true)
-        case .failure(let error):
-            XCTAssertEqual(APIError.invalidResponse(500), error)
-        }
-    }
-    
-    func testAPIRequestWithCorrectData() async {
-        
-        // Given
-        FakeURLSessionProtocol.loadingData = {
-            let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            return (response!, self.data)
-        }
-        
-        // When
-        _ = switch await APIService<TranslationResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: TranslationRequest(query: "Bonjour", source: "fr", target: "en", format: "text").value), urlSession: session) {
-            
-            // Then
-        case .success(_):
-            XCTAssertTrue(true)
-        case .failure(_):
-            XCTAssertNil(true)
-        }
-    }
-    
-    func testAPIRequestWithUncorrectData() async {
-        
-        // Given
-        data = "fake data".data(using: .utf8)
+        model.handleLanguageSelection(language: .french, index: 0)
+        model.handleLanguageSelection(language: .english, index: 1)
         
         FakeURLSessionProtocol.loadingData = {
             let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)
@@ -120,18 +58,46 @@ final class TranslationModelTest: XCTestCase {
         }
         
         // When
-        _ = switch await APIService<TranslationResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: TranslationRequest(query: "Bonjour", source: "fr", target: "en", format: "text").value), urlSession: session) {
-            
-            // Then
-        case .success(_):
-            XCTAssertNil(true)
-        case .failure(let error):
-            XCTAssertEqual(APIError.parsingError, error)
-        }
+        await model.getTranslation(text: "bonjour")
+        
+        // Then
+        XCTAssertEqual(delegate.result, "Good morning")
+    }
+    
+    func testTranslateFromDefaultValue() {
+        // Given
+        UserDefaults.standard.removeObject(forKey: "TranslateFrom")
+        
+        // Then
+        XCTAssertEqual(model.translateFrom, "french")
+    }
+    
+    func testTranslateToDefaultValue() {
+        // Given
+        UserDefaults.standard.removeObject(forKey: "TranslateTo")
+        
+        // Then
+        XCTAssertEqual(model.translateTo, "english")
+    }
+    
+    func testTranslateFromAPIDefaultValue() {
+        // Given
+        UserDefaults.standard.removeObject(forKey: "TranslateFromApi")
+        
+        // Then
+        XCTAssertEqual(model.translateFromAPI, "fr")
+    }
+    
+    func testTranslateToAPIDefaultValue() {
+        // Given
+        UserDefaults.standard.removeObject(forKey: "TranslateToApi")
+        
+        // Then
+        XCTAssertEqual(model.translateToAPI, "en")
     }
 }
 
-private class MockAppServiceDelegate: AppServiceDelegate {
+private class MockTranslationModelDelegate: TranslationModelDelegate {
     
     var result: String?
     var error: APIError?

@@ -137,10 +137,10 @@
                             <outletCollection property="gestureRecognizers" destination="lFu-Dx-vt6" appends="YES" id="P1P-dw-aVd"/>
                         </connections>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Weather" image="sun.max.fill" catalog="system" id="ClM-uf-dJm"/>
+                    <tabBarItem key="tabBarItem" title="Traduction" image="arrow.left.arrow.right" catalog="system" id="ClM-uf-dJm"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="InputTextView" destination="wWm-cf-put" id="U9M-jN-H6e"/>
+                        <outlet property="inputTextView" destination="wWm-cf-put" id="U9M-jN-H6e"/>
                         <outlet property="translatedTextView" destination="h6p-qc-kvq" id="qa2-UJ-DJQ"/>
                         <outlet property="translatorButtonFrom" destination="xpc-69-xSX" id="k60-Uv-z15"/>
                         <outlet property="translatorButtonTo" destination="iiA-nk-NhB" id="wV4-Fe-e7G"/>
@@ -157,7 +157,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="sun.max.fill" catalog="system" width="128" height="125"/>
+        <image name="arrow.left.arrow.right" catalog="system" width="120" height="128"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
@@ -165,7 +165,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

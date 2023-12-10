@@ -7,18 +7,15 @@
 
 import UIKit
 
-final class ConverterViewController: UIViewController, AppServiceDelegate {
+final class ConverterViewController: UIViewController, ConverterModelDelegate {
     
     //MARK: - Property
     @IBOutlet private var textField: UITextField!
     @IBOutlet weak var resultView: UILabel!
     @IBOutlet weak var buttonFromCurrency: UIButton!
     @IBOutlet weak var buttonToCurrency: UIButton!
-    
     private var model = ConverterModel()
-    
-    // model on view did load method et le model fais son job
-    
+        
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,9 +23,6 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
         view.linearGradientBackground()
         makeMenu(for: buttonFromCurrency, index: 0)
         makeMenu(for: buttonToCurrency, index: 1)
-        Task {
-            await model.loadData()
-        }
     }
     
     //MARK: - AppServiceDelegate
@@ -77,11 +71,11 @@ final class ConverterViewController: UIViewController, AppServiceDelegate {
     }
     
     private func selectionState(index: Int, for elements: [UIMenuElement]) {
-        if index == 1 {
+        if index == 0 {
             if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.fromCurrency }) as? UIAction {
                 element.state = .on
             }
-        } else if index == 0 {
+        } else if index == 1 {
             if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.toCurrency }) as? UIAction {
                 element.state = .on
             }

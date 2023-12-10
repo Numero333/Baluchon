@@ -5,8 +5,6 @@
 //  Created by François-Xavier on 20/10/2023.
 //
 
-#warning("Arbo per feature")
-
 import UIKit
 
 final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, WeatherModelDelegate {
@@ -14,29 +12,24 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     //MARK: - Property
     @IBOutlet weak var localTemperatureLabel: UILabel!
     @IBOutlet weak var localInfoLabel: UILabel!
-    
     @IBOutlet weak var distantTemperatureLabel: UILabel!
     @IBOutlet weak var distantInfoLabel: UILabel!
-    
-//    @IBOutlet weak var localImage: UIImageView!
-//    @IBOutlet weak var distantImage: UIImageView!
-    
     @IBOutlet weak var localPicker: UIPickerView!
     @IBOutlet weak var distantPicker: UIPickerView!
-
     let model = WeatherModel()
         
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         model.delegate = self
-        
         configureLocalPicker()
         configureDistantPicker()
-        
-        model.loadData()
-        
         view.linearGradientBackground()
+        
+        // J'ai mis le call ici, le delegate n'étant pas encore init lorsque le model est init la vue n'est pas rafraichi avec les valeurs ce qui est embetant tout de meme
+        Task {
+            await model.loadData()
+        }
     }
     
     //MARK: - AppServiceDelegate
@@ -47,6 +40,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     func didUpdateLocalTemperature(result: String) {
+        print("call from darkest place")
         DispatchQueue.main.async {
             self.localTemperatureLabel.text = result
         }
@@ -71,7 +65,9 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func refresh(_ sender: Any) {
-             self.model.loadData()
+        Task {
+           await self.model.loadData()
+        }
     }
     
     //MARK: - UIPickerDelegate

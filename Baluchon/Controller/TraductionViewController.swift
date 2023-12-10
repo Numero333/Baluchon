@@ -9,16 +9,13 @@ import UIKit
 
 //Handle decimal part "," vers "."
 
-final class TraductionViewController: UIViewController, AppServiceDelegate, UITextViewDelegate {
+final class TraductionViewController: UIViewController, TranslationModelDelegate, UITextViewDelegate {
     
     //MARK: - Property
-    
-    @IBOutlet private var InputTextView: UITextView!
+    @IBOutlet private var inputTextView: UITextView!
     @IBOutlet private var translatedTextView: UITextView!
-    
     @IBOutlet weak var translatorButtonFrom: UIButton!
     @IBOutlet weak var translatorButtonTo: UIButton!
-    
     private var model = TranslationModel()
     
     //MARK: - Override
@@ -27,7 +24,7 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
         model.delegate = self
         makeMenu(for: translatorButtonFrom, index: 0)
         makeMenu(for: translatorButtonTo, index: 1)
-        InputTextView.delegate = self
+        inputTextView.delegate = self
         view.linearGradientBackground()
     }
     
@@ -46,12 +43,14 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
     
     //MARK: - Action
     @IBAction private func translateButton(_ sender: UIButton) {
-        guard let text = self.InputTextView.text, !text.isEmpty else { return }
-        model.getTranslation(text: text)
+        guard let text = self.inputTextView.text, !text.isEmpty else { return }
+        Task {
+            await model.getTranslation(text: text)
+        }
     }
     
     @IBAction private func dismissKeyboard(_ sender: UITapGestureRecognizer) {
-        self.InputTextView.resignFirstResponder()
+        self.inputTextView.resignFirstResponder()
     }
         
     //MARK: - UITextFieldDelegate
@@ -81,11 +80,11 @@ final class TraductionViewController: UIViewController, AppServiceDelegate, UITe
     
     private func selectionState(index: Int, for elements: [UIMenuElement]) {
         if index == 0 {
-            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.translateFrom }) as? UIAction {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title.lowercased() == self.model.translateFrom }) as? UIAction {
                 element.state = .on
             }
         } else if index == 1 {
-            if let element = elements.first(where: { ($0 as? UIAction)?.title == self.model.translateTo }) as? UIAction {
+            if let element = elements.first(where: { ($0 as? UIAction)?.title.lowercased() == self.model.translateTo }) as? UIAction {
                 element.state = .on
             }
         }

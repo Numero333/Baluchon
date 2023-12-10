@@ -10,6 +10,9 @@
 
 import Foundation
 
+// enlever le static et l'url session de la méthode
+// instance d'apiService
+
 /// Performs an HTTP request and returns the result as a `Result` type.
 ///
 /// - Parameters:
@@ -29,7 +32,7 @@ struct APIService<T: Codable> {
         self.urlSession = urlSession
     }
         
-    static func performRequest(apiRequest: APIRequest, urlSession: URLSession = URLSession.shared) async -> Result<T, APIError> {
+    func performRequest(apiRequest: APIRequest) async -> Result<T, APIError> {
 
         // Create url with our parameters
         var components = URLComponents(string: apiRequest.url.value)
@@ -41,6 +44,8 @@ struct APIService<T: Codable> {
         guard let url = components?.url else {
             return .failure(.invalidUrl)
         }
+        
+        print(url)
         
         // Create the request
         var request = URLRequest(url: url)
