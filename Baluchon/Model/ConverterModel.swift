@@ -79,7 +79,7 @@ final class ConverterModel {
     }
     
     private func formatDecimal(for result: Double) -> String {
-        var formatter = NumberFormatter()
+        let formatter = NumberFormatter()
         formatter.maximumFractionDigits = 2
         
         return formatter.string(for: result)!
