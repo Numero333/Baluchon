@@ -10,29 +10,29 @@ import XCTest
 
 final class ConverterModelTest: XCTestCase {
     
-    private var session: URLSession! = {
+    private let session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [FakeURLSessionProtocol.self]
         return URLSession(configuration: configuration)
     }()
     
-    private var data: Data! = {
+    private let data: Data = {
         let bundle = Bundle(for: ConverterModelTest.self)
         let url = bundle.url(forResource: "Converter", withExtension: "json")
         return try! Data(contentsOf: url!)
     }()
     
-    private var url: URL! =  URL(string: APIRequest.RequestURL.fixer.value)
+    private let url: URL = URL(string: APIRequest.RequestURL.fixer.value)!
     
-    private var model: ConverterModel = ConverterModel()
-    private var delegate: MockConverterDelegate = MockConverterDelegate()
+    private let model: ConverterModel = ConverterModel()
+    private let delegate: MockConverterDelegate = MockConverterDelegate()
     
     override func setUp() {
         model.apiService = APIService<ConverterResponse>(urlSession: session)
         model.delegate = delegate
     }
     
-    func testGetConversionWithCorrectAmount() async {
+    func testGetConversionWithCorrectAmount() {
         
         // Given
         model.handleCurrencySelection(currency: "EUR", index: 0)
@@ -44,15 +44,17 @@ final class ConverterModelTest: XCTestCase {
         }
         
         // When
-        await model.loadData()
+        model.onViewDidLoad()
         model.getConvertion(inputAmount: "15")
         
         // Then
-        XCTAssertEqual(delegate.result, "7,5")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertEqual(self.delegate.result, "7,5")
+        }
         
     }
 
-    func testGetConversionWithIncorrectAmount() async {
+    func testGetConversionWithIncorrectAmount() {
         
         // Given
         model.handleCurrencySelection(currency: "EUR", index: 0)
@@ -64,7 +66,7 @@ final class ConverterModelTest: XCTestCase {
         }
         
         // When
-       await model.loadData()
+        model.onViewDidLoad()
         model.getConvertion(inputAmount: "ABC")
 
             
@@ -108,10 +110,10 @@ final class ConverterModelTest: XCTestCase {
         model.getConvertion(inputAmount: "15")
         
         // Then
-        XCTAssertEqual(delegate.result, "NaN")
+        XCTAssertEqual(delegate.result, "nan")
     }
     
-    func testMapperIncorrectValue() async {
+    func testMapperIncorrectValue() {
         // Given
         FakeURLSessionProtocol.loadingData = {
             let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)
@@ -119,13 +121,13 @@ final class ConverterModelTest: XCTestCase {
         }
         
         // When
-        await model.loadData()
+        model.onViewDidLoad()
         model.fromCurrency = "XXX"
         model.toCurrency = "XXX"
         model.getConvertion(inputAmount: "15")
         
         // Then
-        XCTAssertEqual(delegate.result, "NaN")
+        XCTAssertEqual(delegate.result, "nan")
     }
 }
 

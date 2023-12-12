@@ -10,32 +10,28 @@ import XCTest
 
 final class TranslationModelTest: XCTestCase {
     
-    private var session: URLSession! = {
+    private let session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [FakeURLSessionProtocol.self]
         return URLSession(configuration: configuration)
     }()
     
-    private var data: Data! = {
+    private let data: Data = {
         let bundle = Bundle(for: WeatherModelTest.self)
         let url = bundle.url(forResource: "Translate", withExtension: "json")
         return try! Data(contentsOf: url!)
     }()
     
-    private var url: URL! =  URL(string: APIRequest.RequestURL.googleTranslate.value)
-    private var model: TranslationModel = TranslationModel()
-    private var delegate: MockTranslationModelDelegate = MockTranslationModelDelegate()
+    private let url: URL =  URL(string: APIRequest.RequestURL.googleTranslate.value)!
+    private let model: TranslationModel = TranslationModel()
+    private let delegate: MockTranslationModelDelegate = MockTranslationModelDelegate()
     
     override func setUp() {
         model.apiService = APIService<TranslationResponse>(urlSession: session)
         model.delegate = delegate
     }
     
-    override func tearDown() {
-        session = nil
-    }
-    
-    func testHandleLanguageSelection() async {
+    func testHandleLanguageSelection() {
         
         // Given
         model.handleLanguageSelection(language: .french, index: 0)
@@ -46,7 +42,7 @@ final class TranslationModelTest: XCTestCase {
         XCTAssertEqual(model.translateTo, "english")
     }
     
-    func testGetTranslation() async {
+    func testRefresh() {
         
         // Given
         model.handleLanguageSelection(language: .french, index: 0)
@@ -58,10 +54,12 @@ final class TranslationModelTest: XCTestCase {
         }
         
         // When
-        await model.getTranslation(text: "bonjour")
+        model.refresh(text: "bonjour")
         
         // Then
-        XCTAssertEqual(delegate.result, "Good morning")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertEqual(self.delegate.result, "Good morning")
+        }
     }
     
     func testTranslateFromDefaultValue() {
@@ -101,7 +99,7 @@ private class MockTranslationModelDelegate: TranslationModelDelegate {
     
     var result: String?
     var error: APIError?
-    
+
     func didFail(error: APIError) {
         self.error = error
     }

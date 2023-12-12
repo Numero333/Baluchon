@@ -10,32 +10,28 @@ import XCTest
 
 final class WeatherModelTest: XCTestCase {
     
-    private var session: URLSession! = {
+    private let session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
         configuration.protocolClasses = [FakeURLSessionProtocol.self]
         return URLSession(configuration: configuration)
     }()
     
-    private var data: Data! = {
+    private let data: Data = {
         let bundle = Bundle(for: WeatherModelTest.self)
         let url = bundle.url(forResource: "Weather", withExtension: "json")
         return try! Data(contentsOf: url!)
     }()
     
-    private var url: URL! =  URL(string: APIRequest.RequestURL.openWeather.value)
-    private var model: WeatherModel = WeatherModel()
-    private var delegate: MockWeatherModelDelegate = MockWeatherModelDelegate()
+    private let url: URL =  URL(string: APIRequest.RequestURL.openWeather.value)!
+    private let model: WeatherModel = WeatherModel()
+    private let  delegate: MockWeatherModelDelegate = MockWeatherModelDelegate()
     
     override func setUp() {
         model.apiService = APIService<WeatherResponse>(urlSession: session)
         model.delegate = delegate
     }
     
-    override func tearDown() {
-        session = nil
-    }
-    
-    func testHandleCitySelectionWithInputValue() async {
+    func testHandleCitySelectionWithInputValue() {
         
         // Given
         model.handleCitySelection(city: .paris, index: 0, row: 0)
@@ -51,7 +47,7 @@ final class WeatherModelTest: XCTestCase {
         XCTAssertEqual(model.toCityRow, 2)
     }
     
-    func testHandleCitySelectionFromCityDefaultValue() async {
+    func testHandleCitySelectionFromCityDefaultValue() {
         
         // Given
         UserDefaults.standard.removeObject(forKey: "FromCityLat")
@@ -62,7 +58,7 @@ final class WeatherModelTest: XCTestCase {
         XCTAssertEqual(model.fromCityLon, "0.0")
     }
     
-    func testHandleCitySelectionToCityDefaultValue() async {
+    func testHandleCitySelectionToCityDefaultValue() {
         
         // Given
         UserDefaults.standard.removeObject(forKey: "ToCityLat")
@@ -73,7 +69,7 @@ final class WeatherModelTest: XCTestCase {
         XCTAssertEqual(model.toCityLon, "0.0")
     }
     
-    func testLoadDataWithCorrectInput() async {
+    func testRefreshWithCorrectInput() {
         
         // Given
         model.handleCitySelection(city: .paris, index: 0, row: 0)
@@ -85,13 +81,16 @@ final class WeatherModelTest: XCTestCase {
         }
         
         // when
-        await model.loadData()
+        
+        model.refresh()
         
         // Then
-        XCTAssertEqual(delegate.resultLocalTemperature, "10.0")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertEqual(self.delegate.resultLocalTemperature, "10.0")
+        }
     }
     
-    func testLoadDataWithUncorrectResponse() async {
+    func testRefreshWithUncorrectResponse() {
         
         // Given
         FakeURLSessionProtocol.loadingData = {
@@ -100,10 +99,32 @@ final class WeatherModelTest: XCTestCase {
         }
         
         // when
-        await model.loadData()
+        model.refresh()
         
         // Then
-        XCTAssertNotNil(delegate.error)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertNotNil(self.delegate.error)
+        }
+    }
+    
+    func testOnViewDidLoadWithCorrectInput() {
+        
+        // Given
+        model.handleCitySelection(city: .paris, index: 0, row: 0)
+        model.handleCitySelection(city: .newYork, index: 1, row: 2)
+        
+        FakeURLSessionProtocol.loadingData = {
+            let response = HTTPURLResponse(url: self.url, statusCode: 200, httpVersion: nil, headerFields: nil)
+            return (response!, self.data)
+        }
+        
+        // when
+        model.onViewDidLoad()
+        
+        // Then
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            XCTAssertEqual(self.delegate.resultLocalTemperature, "10.0")
+        }
     }
 }
 

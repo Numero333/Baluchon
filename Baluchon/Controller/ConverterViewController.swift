@@ -23,6 +23,7 @@ final class ConverterViewController: UIViewController, ConverterModelDelegate {
         view.linearGradientBackground()
         makeMenu(for: buttonFromCurrency, index: 0)
         makeMenu(for: buttonToCurrency, index: 1)
+        model.onViewDidLoad()
     }
     
     //MARK: - AppServiceDelegate

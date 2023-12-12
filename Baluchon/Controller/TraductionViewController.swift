@@ -7,8 +7,6 @@
 
 import UIKit
 
-//Handle decimal part "," vers "."
-
 final class TraductionViewController: UIViewController, TranslationModelDelegate, UITextViewDelegate {
     
     //MARK: - Property
@@ -44,9 +42,7 @@ final class TraductionViewController: UIViewController, TranslationModelDelegate
     //MARK: - Action
     @IBAction private func translateButton(_ sender: UIButton) {
         guard let text = self.inputTextView.text, !text.isEmpty else { return }
-        Task {
-            await model.getTranslation(text: text)
-        }
+        model.refresh(text: text)
     }
     
     @IBAction private func dismissKeyboard(_ sender: UITapGestureRecognizer) {
@@ -60,7 +56,6 @@ final class TraductionViewController: UIViewController, TranslationModelDelegate
     }
     
     //MARK: - Private
-    
     private func makeMenu(for button: UIButton, index: Int) {
         button.menu = UIMenu(title: "Language", children: makeValueMenu(index: index))
     }

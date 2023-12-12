@@ -84,26 +84,6 @@ final class WeatherModel {
     
     //MARK: - Accesible
     weak var delegate: WeatherModelDelegate?
-        
-    func loadData() async {
-            switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: fromCityLat, longitude: fromCityLon).value)){
-            case .success(let weather):
-                delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateLocalInfo(result: weather.weather[0].description.capitalizingFirstLetter())
-            case .failure(let error):
-                delegate?.didFail(error: error)
-            }
-        
-        
-            switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: toCityLat, longitude: toCityLon).value)){
-            case .success(let weather):
-                delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateDistantInfo(result: weather.weather[0].description.capitalizingFirstLetter())
-            case .failure(let error):
-                delegate?.didFail(error: error)
-            }
-        
-    }
     
     func handleCitySelection(city: City, index: Int, row: Int) {
         if index == 0 {
@@ -114,6 +94,39 @@ final class WeatherModel {
             toCityLat = city.coordinates.latitude
             toCityLon = city.coordinates.longitude
             toCityRow = row
+        }
+    }
+    
+    func onViewDidLoad() {
+        Task {
+            await loadData()
+        }
+    }
+    
+    func refresh() {
+        Task {
+            await loadData()
+        }
+    }
+    
+    //MARK: - Private
+    private func loadData() async {
+        
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: fromCityLat, longitude: fromCityLon).value)){
+        case .success(let weather):
+            delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
+            delegate?.didUpdateLocalInfo(result: weather.weather[0].description.capitalizingFirstLetter())
+        case .failure(let error):
+            delegate?.didFail(error: error)
+        }
+        
+        
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: toCityLat, longitude: toCityLon).value)){
+        case .success(let weather):
+            delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
+            delegate?.didUpdateDistantInfo(result: weather.weather[0].description.capitalizingFirstLetter())
+        case .failure(let error):
+            delegate?.didFail(error: error)
         }
     }
 }

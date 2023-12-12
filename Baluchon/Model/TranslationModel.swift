@@ -61,20 +61,6 @@ final class TranslationModel {
     //MARK: - Accesible
     weak var delegate: TranslationModelDelegate?
     
-    func getTranslation(text: String) async {
-        switch await apiService.performRequest(
-            apiRequest: APIRequest(url: .googleTranslate,
-                                   method: .get,
-                                   parameters: TranslationRequest(query: text,
-                                                                  source: translateFromAPI,
-                                                                  target: translateToAPI,
-                                                                  format: "text").value)
-        ){
-        case .success(let translation): delegate?.didUpdate(result: translation.data.translations[0].translatedText)
-        case .failure(let error) : delegate?.didFail(error: error)
-        }
-    }
-    
     func handleLanguageSelection(language: Language, index: Int) {
         if index == 0 {
             translateFrom = String(describing: language)
@@ -83,5 +69,28 @@ final class TranslationModel {
             translateTo = String(describing: language)
             translateToAPI = language.rawValue
         }
+    }
+    
+    func refresh(text: String) {
+        Task {
+            await getTranslation(text: text)
+        }
+    }
+    
+    //MARK: - Private
+    private func getTranslation(text: String) async {
+       
+            switch await apiService.performRequest(
+                apiRequest: APIRequest(url: .googleTranslate,
+                                       method: .get,
+                                       parameters: TranslationRequest(query: text,
+                                                                      source: translateFromAPI,
+                                                                      target: translateToAPI,
+                                                                      format: "text").value)
+            ){
+            case .success(let translation): delegate?.didUpdate(result: translation.data.translations[0].translatedText)
+            case .failure(let error) : delegate?.didFail(error: error)
+            }
+        
     }
 }

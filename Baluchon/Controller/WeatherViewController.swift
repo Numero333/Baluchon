@@ -25,11 +25,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
         configureLocalPicker()
         configureDistantPicker()
         view.linearGradientBackground()
-        
-        // J'ai mis le call ici, le delegate n'étant pas encore init lorsque le model est init la vue n'est pas rafraichi avec les valeurs ce qui est embetant tout de meme
-        Task {
-            await model.loadData()
-        }
+        model.onViewDidLoad()
     }
     
     //MARK: - AppServiceDelegate
@@ -64,9 +60,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func refresh(_ sender: Any) {
-        Task {
-           await self.model.loadData()
-        }
+        model.refresh()
     }
     
     //MARK: - UIPickerDelegate

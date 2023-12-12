@@ -14,13 +14,6 @@ protocol ConverterModelDelegate: AnyObject {
 
 final class ConverterModel {
     
-    // MARK: - Initialization
-    init() {
-        Task {
-            await self.loadData()
-        }
-    }
-    
     //MARK: - Property
     private var currencyChoice = UserDefaults.standard
     
@@ -50,7 +43,7 @@ final class ConverterModel {
     weak var delegate: ConverterModelDelegate?
     
     func getConvertion(inputAmount: String) {
-        let result = calculateConversion(amount: inputAmount)
+        let result = calculateConversion(value: inputAmount)
         delegate?.didUpdate(result: result)
     }
     
@@ -62,27 +55,31 @@ final class ConverterModel {
         }
     }
     
-    func loadData() async {
-            switch await apiService.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: nil)) {
-            case .success(let conversion) :
-                self.rating = conversion.rates
-            case .failure(let error) : delegate?.didFail(error: error)
-            }
-        
+    func onViewDidLoad() {
+        Task {
+            await loadData()
+        }
     }
     
     //MARK: - Private
-    private func calculateConversion(amount: String) -> String {
+    private func loadData() async {
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: nil)) {
+        case .success(let conversion) :
+            self.rating = conversion.rates
+        case .failure(let error) : delegate?.didFail(error: error)
+        }
+    }
+    
+    private func calculateConversion(value: String) -> String {
+        let amount = value.replacingOccurrences(of: ",", with: ".")
         guard let amountDouble = Double(amount) else { return "Error please try again" }
         let result = (amountDouble * mapper(for: fromCurrency) ) / mapper(for: toCurrency)
         return formatDecimal(for: result)
     }
     
     private func formatDecimal(for result: Double) -> String {
-        let formatter = NumberFormatter()
-        formatter.maximumFractionDigits = 2
-        
-        return formatter.string(for: result)!
+        let formattedResult = round(result * 100) / 100
+        return String(describing: formattedResult)
     }
     
     private func mapper(for value: String) -> Double {
