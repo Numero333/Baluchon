@@ -82,7 +82,7 @@ final class WeatherModelTest: XCTestCase {
         
         // when
         
-        model.refresh()
+        model.onRefresh()
         
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -99,7 +99,7 @@ final class WeatherModelTest: XCTestCase {
         }
         
         // when
-        model.refresh()
+        model.onRefresh()
         
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {

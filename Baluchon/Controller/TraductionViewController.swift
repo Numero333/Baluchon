@@ -42,7 +42,7 @@ final class TraductionViewController: UIViewController, TranslationModelDelegate
     //MARK: - Action
     @IBAction private func translateButton(_ sender: UIButton) {
         guard let text = self.inputTextView.text, !text.isEmpty else { return }
-        model.refresh(text: text)
+        model.onrefresh(text: text)
     }
     
     @IBAction private func dismissKeyboard(_ sender: UITapGestureRecognizer) {

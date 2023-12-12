@@ -60,7 +60,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func refresh(_ sender: Any) {
-        model.refresh()
+        model.onRefresh()
     }
     
     //MARK: - UIPickerDelegate

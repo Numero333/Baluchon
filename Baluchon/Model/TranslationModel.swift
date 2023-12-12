@@ -71,7 +71,7 @@ final class TranslationModel {
         }
     }
     
-    func refresh(text: String) {
+    func onrefresh(text: String) {
         Task {
             await getTranslation(text: text)
         }

@@ -103,7 +103,7 @@ final class WeatherModel {
         }
     }
     
-    func refresh() {
+    func onRefresh() {
         Task {
             await loadData()
         }

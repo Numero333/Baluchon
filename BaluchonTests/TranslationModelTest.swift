@@ -54,7 +54,7 @@ final class TranslationModelTest: XCTestCase {
         }
         
         // When
-        model.refresh(text: "bonjour")
+        model.onrefresh(text: "bonjour")
         
         // Then
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
