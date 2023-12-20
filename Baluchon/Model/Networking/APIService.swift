@@ -10,9 +10,6 @@
 
 import Foundation
 
-// enlever le static et l'url session de la méthode
-// instance d'apiService
-
 /// Performs an HTTP request and returns the result as a `Result` type.
 ///
 /// - Parameters:
