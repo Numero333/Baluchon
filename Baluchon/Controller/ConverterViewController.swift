@@ -19,6 +19,7 @@ final class ConverterViewController: UIViewController, ConverterModelDelegate {
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         model.delegate = self
         view.linearGradientBackground()
         makeMenu(for: buttonFromCurrency, index: 0)

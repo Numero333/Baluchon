@@ -91,6 +91,5 @@ final class TranslationModel {
             case .success(let translation): delegate?.didUpdate(result: translation.data.translations[0].translatedText)
             case .failure(let error) : delegate?.didFail(error: error)
             }
-        
     }
 }

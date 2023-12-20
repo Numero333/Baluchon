@@ -19,6 +19,7 @@ final class TraductionViewController: UIViewController, TranslationModelDelegate
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         model.delegate = self
         makeMenu(for: translatorButtonFrom, index: 0)
         makeMenu(for: translatorButtonTo, index: 1)

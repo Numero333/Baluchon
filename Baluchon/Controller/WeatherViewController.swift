@@ -21,6 +21,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         model.delegate = self
         configureLocalPicker()
         configureDistantPicker()
