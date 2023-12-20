@@ -29,7 +29,7 @@ struct APIService<T: Codable> {
         self.urlSession = urlSession
     }
         
-    static func performRequest(apiRequest: APIRequest, urlSession: URLSession = URLSession.shared) async -> Result<T, APIError> {
+    func performRequest(apiRequest: APIRequest) async -> Result<T, APIError> {
 
         // Create url with our parameters
         var components = URLComponents(string: apiRequest.url.value)
@@ -41,7 +41,7 @@ struct APIService<T: Codable> {
         guard let url = components?.url else {
             return .failure(.invalidUrl)
         }
-        
+                
         // Create the request
         var request = URLRequest(url: url)
         request.httpMethod = apiRequest.method.rawValue

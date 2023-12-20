@@ -5,8 +5,6 @@
 //  Created by François-Xavier on 20/10/2023.
 //
 
-#warning("Arbo per feature")
-
 import UIKit
 
 final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, WeatherModelDelegate {
@@ -14,29 +12,21 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     //MARK: - Property
     @IBOutlet weak var localTemperatureLabel: UILabel!
     @IBOutlet weak var localInfoLabel: UILabel!
-    
     @IBOutlet weak var distantTemperatureLabel: UILabel!
     @IBOutlet weak var distantInfoLabel: UILabel!
-    
-//    @IBOutlet weak var localImage: UIImageView!
-//    @IBOutlet weak var distantImage: UIImageView!
-    
     @IBOutlet weak var localPicker: UIPickerView!
     @IBOutlet weak var distantPicker: UIPickerView!
-
     let model = WeatherModel()
         
     //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
+        overrideUserInterfaceStyle = .light
         model.delegate = self
-        
         configureLocalPicker()
         configureDistantPicker()
-        
-        model.loadData()
-        
         view.linearGradientBackground()
+        model.onViewDidLoad()
     }
     
     //MARK: - AppServiceDelegate
@@ -71,7 +61,7 @@ final class WeatherViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func refresh(_ sender: Any) {
-             self.model.loadData()
+        model.onRefresh()
     }
     
     //MARK: - UIPickerDelegate

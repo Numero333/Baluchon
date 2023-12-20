@@ -9,7 +9,7 @@ import Foundation
 
 class FakeURLSessionProtocol: URLProtocol {
     
-    static var loadingData: (() -> (HTTPURLResponse, Data?))?
+    static var loadingData: (() -> (HTTPURLResponse?, Data?))?
     
     override class func canInit(with request: URLRequest) -> Bool {
         true
@@ -22,7 +22,14 @@ class FakeURLSessionProtocol: URLProtocol {
     override func startLoading() {
         let handler = FakeURLSessionProtocol.loadingData!
         let (response, data) = handler()
+        
+        guard let response = response else {
+            client?.urlProtocolDidFinishLoading(self)
+            return
+        }
+        
         client?.urlProtocol(self, didReceive: response, cacheStoragePolicy: .notAllowed)
+        
         if let data = data {
             client?.urlProtocol(self, didLoad: data)
         }

@@ -110,7 +110,7 @@ struct ConverterResponse: Codable {
         let MMK: Double
         let MNT: Double
         let MOP: Double
-        let MRO: Double
+        let MRU: Double
         let MUR: Double
         let MVR: Double
         let MWK: Double

@@ -9,7 +9,6 @@ import UIKit
 
 struct Alert {
     static func display(vc: UIViewController, message: String) {
-        // Make sure we are on the main thread
         assert(Thread.isMainThread)
         let alertVC = UIAlertController(title: "Erreur !", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

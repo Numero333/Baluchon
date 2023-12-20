@@ -6,67 +6,89 @@
 //
 
 import Foundation
-//import UIKit
+
+protocol ConverterModelDelegate: AnyObject {
+    func didFail(error: APIError)
+    func didUpdate(result: String)
+}
 
 final class ConverterModel {
     
     //MARK: - Property
-    private var rating: ConverterResponse.Currency?
-    
     private var currencyChoice = UserDefaults.standard
     
+    var apiService = APIService<ConverterResponse>()
+    
+    var rating: ConverterResponse.Currency?
+    
     var fromCurrency: String {
-        return currencyChoice.string(forKey: "ToCurrencyChoice") ?? "EUR"
+        get {
+            currencyChoice.string(forKey: "FromCurrencyChoice") ?? "EUR"
+        }
+        set {
+            currencyChoice.set(newValue, forKey: "FromCurrencyChoice")
+        }
     }
+    
     var toCurrency: String {
-        currencyChoice.string(forKey: "FromCurrencyChoice") ?? "USD"
+        get {
+            currencyChoice.string(forKey: "ToCurrencyChoice") ?? "USD"
+        }
+        set {
+            currencyChoice.set(newValue, forKey: "ToCurrencyChoice")
+        }
     }
     
     //MARK: - Accesible
-    weak var delegate: AppServiceDelegate?
+    weak var delegate: ConverterModelDelegate?
     
     func getConvertion(inputAmount: String) {
-        let result = calculateConversion(amount: inputAmount)
+        let result = calculateConversion(value: inputAmount)
         delegate?.didUpdate(result: result)
     }
     
     func handleCurrencySelection(currency: String, index: Int) {
         if index == 0 {
-            saveCurrency(value: currency, key: "FromCurrencyChoice")
+            fromCurrency = currency
         } else {
-            saveCurrency(value: currency, key: "ToCurrencyChoice")
+            toCurrency = currency
+        }
+    }
+    
+    func onViewDidLoad() {
+        Task {
+            await loadData()
         }
     }
     
     //MARK: - Private
-    func loadData() async {
-        switch await APIService<ConverterResponse>.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: nil)) {
+    private func loadData() async {
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .fixer, method: .get, parameters: nil)) {
         case .success(let conversion) :
             self.rating = conversion.rates
         case .failure(let error) : delegate?.didFail(error: error)
         }
     }
     
-    // Mauvaise gestion de l'erreur
-    private func calculateConversion(amount: String) -> String {
+    private func calculateConversion(value: String) -> String {
+        let amount = value.replacingOccurrences(of: ",", with: ".")
         guard let amountDouble = Double(amount) else { return "Error please try again" }
-        let result = (amountDouble * mapper(for: fromCurrency) ) /  mapper(for: toCurrency)
-        return String(result)
+        let result = (amountDouble * mapper(for: fromCurrency) ) / mapper(for: toCurrency)
+        return formatDecimal(for: result)
+    }
+    
+    private func formatDecimal(for result: Double) -> String {
+        let formattedResult = round(result * 100) / 100
+        return String(describing: formattedResult)
     }
     
     private func mapper(for value: String) -> Double {
         guard let unWrappedRates = rating else { return 0.0 }
         
-        // Utilisation de la réflexion pour obtenir la propriété correspondante dans unWrappedRates
         if let rate = Mirror(reflecting: unWrappedRates).children.first(where: { $0.label == value })?.value as? Double {
             return rate
         }
         
-        return 0.0 // Retourne une valeur par défaut si la devise n'est pas trouvée
+        return 0.0
     }
-    
-    private func saveCurrency(value: String, key: String) {
-        currencyChoice.set(value, forKey: key)
-    }
-        
 }

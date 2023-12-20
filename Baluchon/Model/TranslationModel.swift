@@ -7,58 +7,89 @@
 
 import Foundation
 
-    final class TranslationModel {
-        
-        //MARK: - Property
-        private var translatorChoice = UserDefaults.standard
-        
-        var translateFrom: String {
-            return translatorChoice.string(forKey: "TranslateFrom") ?? "french"
+protocol TranslationModelDelegate: AnyObject {
+    func didFail(error: APIError)
+    func didUpdate(result: String)
+}
+
+final class TranslationModel {
+    
+    //MARK: - Property
+    private var translatorChoice = UserDefaults.standard
+    
+    var apiService = APIService<TranslationResponse>()
+    
+    var translateFrom: String {
+        get {
+            translatorChoice.string(forKey: "TranslateFrom") ?? "french"
         }
-        
-        var translateTo: String {
-            return translatorChoice.string(forKey: "TranslateTo") ?? "english"
-        }
-        
-        private var translateFromAPI: String {
-            return translatorChoice.string(forKey: "TranslateFromApi") ?? "fr"
-        }
-        
-        private var translateToAPI: String {
-            return translatorChoice.string(forKey: "TranslateToApi") ?? "en"
-        }
-        
-        //MARK: - Accesible
-        weak var delegate: AppServiceDelegate?
-        
-        func getTranslation(text: String) {
-            Task {
-                switch await APIService<TranslationResponse>.performRequest(
-                    apiRequest: APIRequest(url: .googleTranslate,
-                                  method: .get,
-                                  parameters: TranslationRequest(query: text,
-                                                                 source: translateFromAPI,
-                                                                 target: translateToAPI,
-                                                                 format: "text").value)
-                ){
-                case .success(let translation): delegate?.didUpdate(result: translation.data.translations[0].translatedText)
-                case .failure(let error) : delegate?.didFail(error: error)
-                }
-            }
-        }
-        
-        func handleLanguageSelection(language: Language, index: Int) {
-            if index == 0 {
-                saveLanguage(value: String(describing: language), key: "TranslateFrom")
-                saveLanguage(value: language.rawValue, key: "TranslateFromApi")
-            } else {
-                saveLanguage(value: String(describing: language), key: "TranslateTo")
-                saveLanguage(value: language.rawValue, key: "TranslateToApi")
-            }
-        }
-        
-        //MARK: - Private
-        private func saveLanguage(value: String, key: String) {
-            translatorChoice.set(value, forKey: key)
+        set {
+            translatorChoice.setValue(newValue, forKey: "TranslateFrom")
         }
     }
+    
+    var translateTo: String {
+        
+        get {
+            translatorChoice.string(forKey: "TranslateTo") ?? "english"
+        }
+        set {
+            translatorChoice.setValue(newValue, forKey: "TranslateTo")
+        }
+    }
+    
+    var translateFromAPI: String {
+        get {
+            translatorChoice.string(forKey: "TranslateFromApi") ?? "fr"
+        }
+        set {
+            translatorChoice.setValue(newValue, forKey: "TranslateFromApi")
+        }
+        
+    }
+    
+    var translateToAPI: String {
+        get {
+            translatorChoice.string(forKey: "TranslateToApi") ?? "en"
+        }
+        set {
+            translatorChoice.setValue(newValue, forKey: "TranslateToApi")
+        }
+        
+    }
+    
+    //MARK: - Accesible
+    weak var delegate: TranslationModelDelegate?
+    
+    func handleLanguageSelection(language: Language, index: Int) {
+        if index == 0 {
+            translateFrom = String(describing: language)
+            translateFromAPI = language.rawValue
+        } else {
+            translateTo = String(describing: language)
+            translateToAPI = language.rawValue
+        }
+    }
+    
+    func onrefresh(text: String) {
+        Task {
+            await getTranslation(text: text)
+        }
+    }
+    
+    //MARK: - Private
+    private func getTranslation(text: String) async {
+       
+            switch await apiService.performRequest(
+                apiRequest: APIRequest(url: .googleTranslate,
+                                       method: .get,
+                                       parameters: TranslationRequest(query: text,
+                                                                      source: translateFromAPI,
+                                                                      target: translateToAPI,
+                                                                      format: "text").value)
+            ){
+            case .success(let translation): delegate?.didUpdate(result: translation.data.translations[0].translatedText)
+            case .failure(let error) : delegate?.didFail(error: error)
+            }
+    }
+}

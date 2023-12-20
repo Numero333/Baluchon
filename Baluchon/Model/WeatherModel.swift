@@ -20,70 +20,113 @@ final class WeatherModel {
     //MARK: - Property
     private var cityChoice = UserDefaults.standard
     
-    var FromCityLat: String {
-        cityChoice.string(forKey: "FromCityLat") ?? "0.0"
+    var apiService = APIService<WeatherResponse>()
+    
+    var fromCityLat: String {
+        get {
+            cityChoice.string(forKey: "FromCityLat") ?? "0.0"
+        }
+        set {
+            cityChoice.set(newValue, forKey: "FromCityLat")
+        }
+        
     }
     
-    var FromCityLon: String {
-        cityChoice.string(forKey: "FromCityLon") ?? "0.0"
+    var fromCityLon: String {
+        get {
+            cityChoice.string(forKey: "FromCityLon") ?? "0.0"
+        }
+        set {
+            cityChoice.set(newValue, forKey: "FromCityLon")
+        }
+        
     }
     
     var fromCityRow: Int {
-        cityChoice.integer(forKey: "FromCityRow")
+        get {
+            cityChoice.integer(forKey: "FromCityRow")
+        }
+        set {
+            cityChoice.set(newValue, forKey: "FromCityRow")
+        }
+        
     }
     
-    var ToCityLat: String {
-        cityChoice.string(forKey: "ToCityLat") ?? "0.0"
+    var toCityLat: String {
+        get {
+            cityChoice.string(forKey: "ToCityLat") ?? "0.0"
+        }
+        set {
+            cityChoice.set(newValue, forKey: "ToCityLat")
+        }
+        
     }
     
-    var ToCityLon: String {
-        cityChoice.string(forKey: "ToCityLon") ?? "0.0"
+    var toCityLon: String {
+        get {
+            cityChoice.string(forKey: "ToCityLon") ?? "0.0"
+        }
+        set {
+            cityChoice.set(newValue, forKey: "ToCityLon")
+        }
+        
     }
     
     var toCityRow: Int {
-        cityChoice.integer(forKey: "ToCityRow")
+        get {
+            cityChoice.integer(forKey: "ToCityRow")
+        }
+        set {
+            cityChoice.set(newValue, forKey: "ToCityRow")
+        }
+        
     }
     
     //MARK: - Accesible
     weak var delegate: WeatherModelDelegate?
-        
-    func loadData() {
-        Task {
-            switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: FromCityLat, longitude: FromCityLon).value)){
-            case .success(let weather):
-                delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateLocalInfo(result: weather.weather[0].description.capitalizingFirstLetter())
-            case .failure(let error):
-                delegate?.didFail(error: error)
-            }
-        }
-        
-        Task {
-            switch await APIService<WeatherResponse>.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: ToCityLat, longitude: ToCityLon).value)){
-            case .success(let weather):
-                delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
-                delegate?.didUpdateDistantInfo(result: weather.weather[0].description.capitalizingFirstLetter())
-            case .failure(let error):
-                delegate?.didFail(error: error)
-            }
-        }
-    }
     
     func handleCitySelection(city: City, index: Int, row: Int) {
         if index == 0 {
-            saveCity(value: city.coordinates.latitude, key: "FromCityLat")
-            saveCity(value: city.coordinates.longitude, key: "FromCityLon")
-            cityChoice.set(row, forKey: "FromCityRow")
+            fromCityLat = city.coordinates.latitude
+            fromCityLon = city.coordinates.longitude
+            fromCityRow = row
         } else {
-            saveCity(value: city.coordinates.latitude, key: "ToCityLat")
-            saveCity(value: city.coordinates.longitude, key: "ToCityLon")
-            cityChoice.set(row, forKey: "ToCityRow")
+            toCityLat = city.coordinates.latitude
+            toCityLon = city.coordinates.longitude
+            toCityRow = row
         }
     }
-        
+    
+    func onViewDidLoad() {
+        Task {
+            await loadData()
+        }
+    }
+    
+    func onRefresh() {
+        Task {
+            await loadData()
+        }
+    }
+    
     //MARK: - Private
-    private func saveCity(value: String, key: String) {
-        cityChoice.set(value, forKey: key)
+    private func loadData() async {
+        
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: fromCityLat, longitude: fromCityLon).value)){
+        case .success(let weather):
+            delegate?.didUpdateLocalTemperature(result: weather.main.temp.description)
+            delegate?.didUpdateLocalInfo(result: weather.weather[0].description.capitalizingFirstLetter())
+        case .failure(let error):
+            delegate?.didFail(error: error)
+        }
+        
+        
+        switch await apiService.performRequest(apiRequest: APIRequest(url: .openWeather, method: .get, parameters: WeatherRequest(latitude: toCityLat, longitude: toCityLon).value)){
+        case .success(let weather):
+            delegate?.didUpdateDistantTemperature(result: weather.main.temp.description)
+            delegate?.didUpdateDistantInfo(result: weather.weather[0].description.capitalizingFirstLetter())
+        case .failure(let error):
+            delegate?.didFail(error: error)
+        }
     }
 }
-
